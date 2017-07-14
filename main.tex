@@ -1,4 +1,4 @@
-\documentclass[11pt,a5paper,twoside,openany]{book}
+\documentclass[11pt,twoside,openany]{book}
 
 %%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -6,10 +6,19 @@
 \usepackage[T1]{fontenc}
 \usepackage[osf]{ebgaramond}
 \usepackage[francais]{babel}
+\usepackage{geometry}     % Configuration de la mise en page
 \usepackage{microtype}    % Améliorations typographiques
 \usepackage{hyperref}     % Liens hypertextes & métadonnées
 
 %%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\geometry{
+  papersize={9.33cm,15cm}, % In-18 carré
+  textwidth=5.3cm,
+  lines=21,
+  headsep=5pt,
+  marginparsep=7mm,
+}
 
 \frenchsetup{
   AutoSpacePunctuation=false,
