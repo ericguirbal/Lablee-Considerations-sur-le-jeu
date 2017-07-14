@@ -1,0 +1,43 @@
+\documentclass[11pt,a5paper,twoside,openany]{book}
+
+%%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[osf]{ebgaramond}
+\usepackage[francais]{babel}
+\usepackage{microtype}    % Améliorations typographiques
+\usepackage{hyperref}     % Liens hypertextes & métadonnées
+
+%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frenchsetup{
+  AutoSpacePunctuation=false,
+  og=«, fg=»,
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    pdftitle={Considérations sur le jeu, les joueurs, la théorie des jeux, etc.},
+    pdfauthor={Lablée, Jacques (1751-1841)},
+    pdfproducer={Éric Guirbal},
+}
+
+%%% MACROS POUR LA SAISIE DU TEXTE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Folio du document source dans la marge
+\newcommand{\folio}[1]{\marginpar[\raggedleft\scriptsize#1]{\scriptsize#1}}
+
+% Lettrines
+\newcommand*{\lettrine}[2]{\noindent{\Large#1}\textsc{#2}}
+
+% Texte entre parenthèses
+\newcommand*{\paren}[1]{(~#1~)}
+
+
+%%% DÉBUT DU DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\end{document}
