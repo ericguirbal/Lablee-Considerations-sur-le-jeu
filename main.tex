@@ -36,7 +36,10 @@
 %%% MACROS POUR LA SAISIE DU TEXTE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Folio du document source dans la marge
-\newcommand{\folio}[1]{\marginpar[\raggedleft\scriptsize#1]{\scriptsize#1}}
+\newcommand{\folio}[1]{%
+  \marginpar[\raggedleft\scriptsize#1]{\scriptsize#1}%
+  \ignorespaces%
+}
 
 % Lettrines
 \newcommand*{\lettrine}[2]{\noindent{\Large#1}\textsc{#2}}
