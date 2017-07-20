@@ -8,6 +8,7 @@
 \usepackage[francais]{babel}
 \usepackage{geometry}     % Configuration de la mise en page
 \usepackage{microtype}    % Améliorations typographiques
+\usepackage{fancyhdr}     % Personnalisation des en-têtes et pieds de page
 \usepackage{verse}        % Améliore l'environnement verse de latex
 \usepackage{hyperref}     % Liens hypertextes & métadonnées
 
@@ -17,7 +18,7 @@
   papersize={9.33cm,15cm}, % In-18 carré
   textwidth=5.3cm,
   lines=20,
-  headsep=5pt,
+  headsep=3pt,
   marginparsep=7mm,
 }
 
@@ -35,7 +36,37 @@
     pdfproducer={Éric Guirbal},
 }
 
-% Formatage des paragraphes
+%%% En-têtes
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[CE]{\scriptsize\textls[200]{\MakeUppercase{\leftmark}}}
+\fancyhead[CO]{\scriptsize\textls[200]{\MakeUppercase{\rightmark}}}
+\fancyhead[RO,LE]{\thepage}
+\makeatletter
+\renewcommand\chaptermark[1]{%
+  \if@mainmatter
+    \markboth{Considérations}{sur le jeu.}
+  \else
+    \markboth{#1.}{#1.}
+  \fi
+}
+\fancypagestyle{plain}{%
+  \if@mainmatter
+    \ifnum\value{chapter}=1
+      \fancyhf{}
+    \fi
+  \else
+    \fancyhf{}
+  \fi
+}
+\let\oldchapter\chapter
+\renewcommand*{\chapter}{\@ifstar{\starchapter}{\@dblarg\nostarchapter}}
+\newcommand*{\starchapter}[1]{\oldchapter*{#1}\chaptermark{#1}}
+\def\nostarchapter[#1]#2{\oldchapter[{#1}]{#2}}
+\makeatother
+
+%%% Formatage des paragraphes
 \setlength{\parindent}{0.8em}
 
 %%% MACROS POUR LA SAISIE DU TEXTE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
