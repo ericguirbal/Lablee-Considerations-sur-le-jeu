@@ -6,11 +6,12 @@
 \usepackage[T1]{fontenc}
 \usepackage[osf]{ebgaramond}
 \usepackage[francais]{babel}
-\usepackage{geometry}     % Configuration de la mise en page
-\usepackage{microtype}    % Améliorations typographiques
-\usepackage{fancyhdr}     % Personnalisation des en-têtes et pieds de page
-\usepackage{verse}        % Améliore l'environnement verse de latex
-\usepackage{hyperref}     % Liens hypertextes & métadonnées
+\usepackage{geometry}           % Configuration de la mise en page
+\usepackage{microtype}          % Améliorations typographiques
+\usepackage{fancyhdr}           % Personnalisation des en-têtes et pieds de page
+\usepackage[explicit]{titlesec} % Personnalisation des titres des  chapitres
+\usepackage{verse}              % Améliore l'environnement verse de latex
+\usepackage{hyperref}           % Liens hypertextes & métadonnées
 
 %%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -66,6 +67,85 @@
 \def\nostarchapter[#1]#2{\oldchapter[{#1}]{#2}}
 \makeatother
 
+%%% Chapitres
+\renewcommand{\thechapter}{%
+  \ifnum\value{chapter}=1%
+    premier%
+  \else%
+    \Roman{chapter}%
+  \fi%
+}
+
+\makeatletter
+% Ajoute un point au titre d'un chapitre s'il ne se termine pas déjà par
+% un signe de ponctuation. Le code provient du package amsthm.sty
+% et a été légèrement modifié.
+\def\frenchspacing{
+  \sfcode `\.\@m \sfcode `\?1500 \sfcode `\!\@m 
+  \sfcode `\:\@m \sfcode `\;\@m  \sfcode `\,\@m
+}
+\DeclareRobustCommand{\addperiod}{%
+  \relax\ifhmode
+    \ifnum\spacefactor>\@m \else.\fi
+  \fi%
+}
+\makeatother
+
+\newcommand{\frontmatterchapterstyle}{%
+  \titleformat{\chapter}[display]
+    {\titlerule[3pt]\vspace{1.5pt}\titlerule[1pt]\vspace{4ex}\filcenter}
+    {}
+    {3ex}
+    {\Large\textls*[100]{\MakeUppercase{##1}}.}
+    [\vspace{1ex}\rule{1.2cm}{1pt}]
+  \titlespacing{\chapter}{0pt}{-5ex}{5ex}
+}
+
+\newcommand{\mainmatterchapterstyle}{%
+  \titleformat{\chapter}[display]
+    {
+      \normalfont\filcenter
+      \ifnum\value{chapter}=1
+        \titlerule[1pt]\vspace{1pt}\titlerule[1pt]\vspace{2.5ex}%
+        {\Large CONSIDÉRATIONS} \\[1.7ex]
+        {\scriptsize\textls[200]{SUR}} \\[1.7ex]
+        {\large\textls[100]{LE JEU, LES JOUEURS,}} \\[3ex]
+        {\small LA THÉORIE DES JEUX, etc.} \\[1.5ex]
+        \rule{1.6cm}{1.6pt} \\[1.8ex]
+      \else
+        \titlerule[2pt]\vspace{1pt}\titlerule[1pt]\vspace{2.5ex}%
+      \fi
+    }
+    {
+      \textls*[150]{\MakeUppercase{\chaptertitlename\space\thechapter}}%
+      \ifnum\value{chapter}=15%
+        \scshape\hspace{0.3em} et\hspace{0.3em} dernier%
+      \fi.
+    }
+    {1.5ex}
+    {
+      \ifnum\value{chapter}=2
+        \scriptsize\textls*[200]{##1}\addperiod
+      \else
+        \itshape##1\addperiod
+      \fi
+    }
+  \titlespacing{\chapter}
+    {0pt}
+    {\ifnum\value{chapter}=1 -4.5ex \else -5pt \fi}
+    {*1}
+}
+
+\newcommand{\backmatterchapterstyle}{
+  \titleformat{\chapter}[display]
+    {\titlerule[1pt]\vspace{1.5pt}\titlerule[1pt]\vspace{2.5ex}}
+    {}
+    {}
+    {\Large\filcenter\textls*[300]{\MakeUppercase{##1}}.}
+    [\vspace{0pc}\rule{0.6cm}{0.8pt}]
+  \titlespacing{\chapter}{0pt}{-5ex}{1ex}
+}
+
 %%% Formatage des paragraphes
 \setlength{\parindent}{0.8em}
 
@@ -89,10 +169,12 @@
 \begin{document}
 
 \frontmatter
+\frontmatterchapterstyle
 
 \include{chapitres/00}
 
 \mainmatter
+\mainmatterchapterstyle
 
 \include{chapitres/01}
 \include{chapitres/02}
@@ -111,6 +193,7 @@
 \include{chapitres/15}
 
 \backmatter
+\backmatterchapterstyle
 
 \tableofcontents
 
