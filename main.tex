@@ -162,7 +162,7 @@
   (\kern0.5\fontdimen2\font\arabic{footnote}\kern0.5\fontdimen2\font)%
 }
 \makeatletter
-\renewcommand*{\@makefnmark}{\hbox{\normalfont\nobreakspace\@thefnmark}}
+\renewcommand*{\@makefnmark}{\unskip\nobreakspace\hbox{\normalfont\@thefnmark}}
 \renewcommand{\@makefntext}[1]{%
   \parindent 0.8em%
   \indent
