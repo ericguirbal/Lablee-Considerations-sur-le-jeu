@@ -9,7 +9,9 @@
 \usepackage{geometry}           % Configuration de la mise en page
 \usepackage{microtype}          % Améliorations typographiques
 \usepackage{fancyhdr}           % Personnalisation des en-têtes et pieds de page
+\usepackage{ifthen}             % Pour des effectuer des comparaisons
 \usepackage[explicit]{titlesec} % Personnalisation des titres des  chapitres
+\usepackage{titletoc}           % Personnalisation de la table des matières
 \usepackage{verse}              % Améliore l'environnement verse de latex
 \usepackage{perpage}            % Remet à 0 le compteur footnote sur chaque page
 \usepackage{hyperref}           % Liens hypertextes & métadonnées
@@ -166,6 +168,39 @@
   \indent
   \kern1.3em
   \llap{\@thefnmark}\hskip 2\fontdimen2\font #1%
+}
+\makeatother
+
+%%% Table des matières
+\contentsmargin{1.5em}
+\titlecontents{chapter}
+  [1em]
+  {\hspace{-1em}}
+  {%
+    \scshape%
+    \ifthenelse{\equal{\thecontentslabel}{premier}}{Chapitre}{Chap.}
+    \thecontentslabel%
+    \ifthenelse{\equal{\thecontentslabel}{XV}}{\normalfont{} et dernier}{}%
+    . \normalfont\itshape
+  }
+  {\scshape}
+  {\addperiod\titlerule*[0.6pc]{.}\contentspage}
+  []
+
+\makeatletter
+\renewcommand{\tableofcontents}{%
+  \if@twocolumn
+    \@restonecoltrue\onecolumn
+  \else
+    \@restonecolfalse
+  \fi
+  \chapter*{\contentsname
+      \@mkboth{%
+         \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+  \hfill{\scriptsize Pag}%
+  \vskip-0.1ex%
+  \@starttoc{toc}%
+  \if@restonecol\twocolumn\fi
 }
 \makeatother
 
