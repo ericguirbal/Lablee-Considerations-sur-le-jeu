@@ -233,6 +233,22 @@
 % Pour éviter que Dussaulx soit en italique dans le titre du premier chapitre
 \renewcommand*{\bsc}[1]{\normalfont\scshape\textls*[100]{#1}}
 
+% Texte entre guillemets
+\ifluatex
+  \renewcommand*{\frquote}{\oldstylefrquote}
+\fi
+
+\makeatletter
+% Si le texte entre guillemets s'étend sur plusieurs lignes alors
+% un guillemet fermant est placé au début de chaque ligne.
+\newcommand*{\oldstylefrquote}[1]{%
+  \leavevmode
+  \localleftbox{\guillemotright\FB@guillspace}%
+  \ogi #1\fgi
+  \localleftbox{}
+}
+\makeatother
+
 %%% DÉBUT DU DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
