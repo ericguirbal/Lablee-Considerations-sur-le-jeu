@@ -2,13 +2,11 @@
 
 %%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[osf]{ebgaramond}
 \usepackage[french]{babel}
 \usepackage{geometry}           % Configuration de la mise en page
 \usepackage{microtype}          % Améliorations typographiques
 \usepackage{fancyhdr}           % Personnalisation des en-têtes et pieds de page
+\usepackage{ifluatex}           % Ce document compile-t-il avec LuaLaTeX ?
 \usepackage{ifthen}             % Pour des effectuer des comparaisons
 \usepackage[explicit]{titlesec} % Personnalisation des titres des  chapitres
 \usepackage{titletoc}           % Personnalisation de la table des matières
@@ -17,6 +15,16 @@
 \usepackage{hyperref}           % Liens hypertextes & métadonnées
 
 %%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifluatex
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX,Numbers=OldStyle}
+  \setmainfont{ebgaramond}
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage[osf]{ebgaramond}
+\fi
 
 \geometry{
   papersize={9.33cm,15cm}, % In-18 carré
