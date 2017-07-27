@@ -172,6 +172,9 @@
 \makeatletter
 \renewcommand*{\@makefnmark}{\unskip\nobreakspace\hbox{\normalfont\@thefnmark}}
 \renewcommand{\@makefntext}[1]{%
+  \ifluatex
+    \localleftbox{}
+  \fi
   \parindent 0.8em%
   \indent
   \kern1.3em
