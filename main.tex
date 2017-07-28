@@ -8,6 +8,7 @@
 \usepackage{fancyhdr}           % Personnalisation des en-têtes et pieds de page
 \usepackage{ifluatex}           % Ce document compile-t-il avec LuaLaTeX ?
 \usepackage{ifthen}             % Pour des effectuer des comparaisons
+\usepackage{etoolbox}           % Boite à outils pour le développeur
 \usepackage[explicit]{titlesec} % Personnalisation des titres des  chapitres
 \usepackage{titletoc}           % Personnalisation de la table des matières
 \usepackage{verse}              % Améliore l'environnement verse de latex
@@ -79,6 +80,14 @@
 \newcommand*{\starchapter}[1]{\oldchapter*{#1}\chaptermark{#1}}
 \def\nostarchapter[#1]#2{\oldchapter[{#1}]{#2}}
 \makeatother
+
+% Folios en romain
+\makeatletter
+\newcommand*{\@folioinroman}[1]{%
+  \ifcase#1\or i\or ij\or iij\or iv\or v\or vj\or vij\or viij\else\@ctrerr\fi
+}
+\makeatother
+\addto{\frontmatter}{\pagenumbering{folioinroman}}
 
 %%% Chapitres
 \renewcommand{\thechapter}{%
