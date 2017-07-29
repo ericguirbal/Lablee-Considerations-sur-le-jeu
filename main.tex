@@ -232,7 +232,10 @@
 
 % Folio du document source dans la marge
 \newcommand{\folio}[1]{%
-  \marginpar[\raggedleft\scriptsize#1]{\scriptsize#1}%
+  \begingroup
+    \ifluatex\localleftbox{}\fi
+    \marginpar[\raggedleft\scriptsize#1]{\scriptsize#1}%
+  \endgroup
   \ignorespaces%
 }
 
