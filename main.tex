@@ -170,8 +170,26 @@
 }
 
 %%% Notes de bas de page
-\MakePerPage[1]{footnote}
 \makeatletter
+% Les commandes \notemark et \notetext permettent à la saisie de notes
+% bas de page. Contrairement aux macros \footnotemark et \footnotetext,
+% elles assurent qu'une note apparaisse sur la même page que l'appel
+% de la note. En contrepartit, il faut une étape de compilation
+% supplémentaire.
+\newcounter{note@ctr}
+\newcommand{\notetext}[1]{%
+  \protected@write\@auxout{}{%
+    \string\expandafter
+    \string\gdef
+    \string\csname\space note@id\thenote@ctr\string\endcsname{#1}}%
+  \ignorespaces
+}
+\newcommand{\notemark}{%
+  \stepcounter{note@ctr}%
+  \unskip\footnote{\ignorespaces\csname note@id\thenote@ctr\endcsname}%
+}
+
+\MakePerPage[1]{footnote}
   % Évite que la première note d'une première page d'un chapitre
 % porte le numéro 2 (bug du package perchapter)
   \@removefromreset{footnote}{chapter}
@@ -186,7 +204,7 @@
   (\kern0.5\fontdimen2\font\arabic{footnote}\kern0.5\fontdimen2\font)%
 }
 \makeatletter
-\renewcommand*{\@makefnmark}{\unskip\nobreakspace\hbox{\normalfont\@thefnmark}}
+\renewcommand*{\@makefnmark}{\nobreakspace\hbox{\normalfont\@thefnmark}}
 \renewcommand{\@makefntext}[1]{%
   \ifluatex
     \localleftbox{}
