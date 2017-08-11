@@ -168,6 +168,9 @@
     [\vspace{0pc}\rule{0.6cm}{0.8pt}]
   \titlespacing{\chapter}{0pt}{-5ex}{1ex}
 }
+\appto{\frontmatter}{\frontmatterchapterstyle}
+\appto{\mainmatter}{\mainmatterchapterstyle}
+\appto{\backmatter}{\backmatterchapterstyle}
 
 %%% Notes de bas de page
 \makeatletter
@@ -294,12 +297,10 @@
 \begin{document}
 
 \frontmatter
-\frontmatterchapterstyle
 
 \include{chapitres/00}
 
 \mainmatter
-\mainmatterchapterstyle
 
 \include{chapitres/01}
 \include{chapitres/02}
@@ -318,7 +319,6 @@
 \include{chapitres/15}
 
 \backmatter
-\backmatterchapterstyle
 
 \tableofcontents
 
