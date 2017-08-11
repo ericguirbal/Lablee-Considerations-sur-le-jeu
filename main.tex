@@ -13,9 +13,15 @@
 \usepackage{titletoc}           % Personnalisation de la table des matières
 \usepackage{verse}              % Améliore l'environnement verse de latex
 \usepackage{perpage}            % Remet à 0 le compteur footnote sur chaque page
+\usepackage{setspace}           % Réglage de l'interligne
+\usepackage{relsize}            % Définir des tailles de fontes relatives
 \usepackage{remreset}           % Pour la commande \@removefromreset
-\usepackage[unicode]{hyperref}  % Liens hypertextes & métadonnées
 
+\AfterPreamble{ % Doit être chargé après avoir patché \@footnotetext
+  \usepackage[unicode,
+              hidelinks]{hyperref} % Liens hypertextes & métadonnées
+}
+ 
 %%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifluatex
@@ -44,12 +50,14 @@
 }
 \renewcommand{\frenchcontentsname}{Table}
 
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    pdftitle={Considérations sur le jeu, les joueurs, la théorie des jeux, etc.},
-    pdfauthor={Lablée, Jacques (1751-1841)},
-    pdfproducer={Éric Guirbal},
+\AfterPreamble{
+  \hypersetup{
+      colorlinks=true,
+      linkcolor=black,
+      pdftitle={Considérations sur le jeu, les joueurs, la théorie des jeux, etc.},
+      pdfauthor={Lablée, Jacques (1751-1841)},
+      pdfproducer={Éric Guirbal},
+  }
 }
 
 %%% En-têtes
@@ -116,7 +124,10 @@
 
 \newcommand{\frontmatterchapterstyle}{%
   \titleformat{\chapter}[display]
-    {\titlerule[3pt]\vspace{1.5pt}\titlerule[1pt]\vspace{4ex}\filcenter}
+    {
+      \setstretch{1}\setlength{\parskip}{0pt}
+      \titlerule[3pt]\vspace{1.5pt}\titlerule[1pt]\vspace{4ex}\filcenter
+    }
     {}
     {3ex}
     {\Large\textls*[100]{\MakeUppercase{##1}}.}
@@ -255,6 +266,35 @@
 %%% Formatage des paragraphes
 \setlength{\parindent}{0.8em}
 \sloppy
+
+\makeatletter
+\pretocmd{\@chapter}
+  {
+    \if@mainmatter
+      \normalsize
+      \setstretch{1}
+      \setlength{\parskip}{0pt}
+    \else
+      \larger
+      \setstretch{1.4}
+      \setlength{\parskip}{\baselineskip}
+    \fi
+  }
+  {}
+  {\typeout{Patching \protect\@chapter\space didn't succeed}}
+\patchcmd{\@footnotetext}
+  {\footnotesize}
+  {
+    \if@mainmatter
+      \scriptsize
+    \else
+      \footnotesize
+      \setstretch{1.4}
+    \fi
+  }
+  {}
+  {\typeout{Patching \protect\@footnotetext\space didn't succeed}}
+\makeatother
 
 %%% MACROS POUR LA SAISIE DU TEXTE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
