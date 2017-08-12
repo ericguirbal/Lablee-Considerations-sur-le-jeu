@@ -152,14 +152,14 @@
       \vspace{-5.5pt}%
       \textls*[100]{\MakeUppercase{##1}}.%
     }
-    [\vspace{-.75\baselineskip}\rule{1.2cm}{1pt}]
+    [\culdelampe]
   \titlespacing{\chapter}{0pt}{-\baselineskip}{-0.5\baselineskip}
 }
 
 \newcommand{\mainmatterchapterstyle}{%
   \titleformat{\chapter}[display]
     {
-      \normalfont\filcenter
+      \normalfont\filcenter%
       \ifnum\value{chapter}=1
         \titlerule[1pt]\vspace{1pt}\titlerule[1pt]\vspace{2.5ex}%
         {\Large CONSIDÉRATIONS} \\[1.7ex]
@@ -168,7 +168,7 @@
         {\small LA THÉORIE DES JEUX, etc.} \\[1.5ex]
         \rule{1.6cm}{1.6pt} \\[1.8ex]
       \else
-        \titlerule[2pt]\vspace{1pt}\titlerule[1pt]\vspace{2.5ex}%
+        \vspace{-\baselineskip}\vspace{1ex}\filetondule\vspace{1.5ex}%
       \fi
     }
     {
