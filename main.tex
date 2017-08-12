@@ -16,6 +16,7 @@
 \usepackage{setspace}           % Réglage de l'interligne
 \usepackage{relsize}            % Définir des tailles de fontes relatives
 \usepackage{remreset}           % Pour la commande \@removefromreset
+\usepackage{tikz}               % Pour créer les filets ondulés
 
 \AfterPreamble{ % Doit être chargé après avoir patché \@footnotetext
   \usepackage[unicode,
@@ -97,6 +98,25 @@
 }
 \makeatother
 \addto{\frontmatter}{\pagenumbering{folioinroman}}
+
+%%% Filet ondulé & cul de lampe
+\newcommand{\filetondule}[1][\textwidth]{%
+  \ifvmode\vbox{\hfiletondule[#1]}\else\hfiletondule[#1]\fi
+}
+\newcommand{\hfiletondule}[1][\textwidth]{%
+  \makebox[\textwidth]{%
+    \begin{tikzpicture}[x=1pt,y=0.5pt]
+      \fill[black,thin]
+        plot[domain=0:#1,samples=300,smooth]
+          (\x, {sin(1.2*\x r)}) --
+        plot[shift={(-1,-2.2)},domain=#1:0,samples=300,smooth]
+          (\x, {sin(1.2*\x r)});
+    \end{tikzpicture}
+  }
+}
+% Le cul de lampe est un filet ondulé dont la longueur
+% est égale à 6 périodes.
+\newcommand{\culdelampe}{\filetondule[31.42pt]}
 
 %%% Chapitres
 \renewcommand{\thechapter}{%
