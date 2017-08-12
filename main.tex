@@ -99,7 +99,7 @@
 \makeatother
 \addto{\frontmatter}{\pagenumbering{folioinroman}}
 
-%%% Filet ondulé & cul de lampe
+%%% Filet ondulé
 \newcommand{\filetondule}[1][\textwidth]{%
   \ifvmode\vbox{\hfiletondule[#1]}\else\hfiletondule[#1]\fi
 }
@@ -114,9 +114,6 @@
     \end{tikzpicture}
   }
 }
-% Le cul de lampe est un filet ondulé dont la longueur
-% est égale à 6 périodes.
-\newcommand{\culdelampe}{\filetondule[31.42pt]}
 
 %%% Chapitres
 \renewcommand{\thechapter}{%
@@ -203,6 +200,39 @@
 \appto{\frontmatter}{\frontmatterchapterstyle}
 \appto{\mainmatter}{\mainmatterchapterstyle}
 \appto{\backmatter}{\backmatterchapterstyle}
+
+% Cul de lampe
+% Le cul de lampe est un filet ondulé dont la longueur
+% est égale à 6 périodes.
+\newcommand{\culdelampe}{\filetondule[31.42pt]}
+
+% Insertion d'un cul de lampe à la fin de chapitre s'il reste suffisamment
+% de place disponible.
+% Réf. : Stephan von Bechtolsheim, TeX In Practice, vol IV, p. 5-7.
+\newdimen\freepagespace
+\newcommand{\insertculdelampe}{%
+  \par\hfill
+  \wlog{DEBUG\string\pagegoal: \the\pagegoal, \string\pagetotal: \the\pagetotal}
+  \ifdim\pagetotal = 0pt
+    \freepagespace = \vsize
+  \else
+    \freepagespace = \pagegoal
+    \advance\freepagespace by -\pagetotal
+  \fi
+  \ifdim\freepagespace > 2\baselineskip
+    \vfill
+    \culdelampe
+    \vfill
+    \ifdim\freepagespace > 5\baselineskip
+      \vfill
+    \fi
+  \fi
+}
+\makeatletter
+\pretocmd{\chapter}{\if@mainmatter\ifnum\value{chapter}>0\insertculdelampe\fi\fi}{}{}
+\preto{\mainmatter}{\insertculdelampe}
+\preto{\backmatter}{\insertculdelampe}
+\makeatother
 
 %%% Notes de bas de page
 \makeatletter
@@ -361,25 +391,25 @@
 
 \frontmatter
 
-\include{chapitres/00}
+\input{chapitres/00}
 
 \mainmatter
 
-\include{chapitres/01}
-\include{chapitres/02}
-\include{chapitres/03}
-\include{chapitres/04}
-\include{chapitres/05}
-\include{chapitres/06}
-\include{chapitres/07}
-\include{chapitres/08}
-\include{chapitres/09}
-\include{chapitres/10}
-\include{chapitres/11}
-\include{chapitres/12}
-\include{chapitres/13}
-\include{chapitres/14}
-\include{chapitres/15}
+\input{chapitres/01}
+\input{chapitres/02}
+\input{chapitres/03}
+\input{chapitres/04}
+\input{chapitres/05}
+\input{chapitres/06}
+\input{chapitres/07}
+\input{chapitres/08}
+\input{chapitres/09}
+\input{chapitres/10}
+\input{chapitres/11}
+\input{chapitres/12}
+\input{chapitres/13}
+\input{chapitres/14}
+\input{chapitres/15}
 
 \backmatter
 
