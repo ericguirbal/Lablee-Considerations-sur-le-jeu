@@ -209,10 +209,12 @@
   \@removefromreset{footnote}{chapter}
 \makeatother
 
+\setlength{\footnotesep}{0.5\baselineskip}
+\setlength{\skip\footins}{0.9\baselineskip}
 \renewcommand{\footnoterule}{%
-  \kern-2pt
+  \vskip-0.2\baselineskip\vskip-3pt
   \hrule width \textwidth height 1pt
-  \kern4pt
+  \vskip0.2\baselineskip\vskip2pt
 }
 \renewcommand*{\thefootnote}{%
   (\kern0.5\fontdimen2\font\arabic{footnote}\kern0.5\fontdimen2\font)%
@@ -289,7 +291,7 @@
       \scriptsize
     \else
       \footnotesize
-      \setstretch{1.4}
+      \setstretch{1.2}
     \fi
   }
   {}
