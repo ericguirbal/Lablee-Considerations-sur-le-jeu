@@ -124,15 +124,16 @@
 
 \newcommand{\frontmatterchapterstyle}{%
   \titleformat{\chapter}[display]
-    {
-      \setstretch{1}\setlength{\parskip}{0pt}
-      \titlerule[3pt]\vspace{1.5pt}\titlerule[1pt]\vspace{4ex}\filcenter
-    }
+    {\normalfont\Large\filcenter}
     {}
-    {3ex}
-    {\Large\textls*[100]{\MakeUppercase{##1}}.}
-    [\vspace{1ex}\rule{1.2cm}{1pt}]
-  \titlespacing{\chapter}{0pt}{-5ex}{5ex}
+    {0pt}
+    {%
+      \titlerule[3pt]\vspace{1.5pt}\titlerule[1pt]%
+      \vspace{-5.5pt}%
+      \textls*[100]{\MakeUppercase{##1}}.%
+    }
+    [\vspace{-.75\baselineskip}\rule{1.2cm}{1pt}]
+  \titlespacing{\chapter}{0pt}{-\baselineskip}{-0.5\baselineskip}
 }
 
 \newcommand{\mainmatterchapterstyle}{%
