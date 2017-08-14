@@ -85,6 +85,9 @@
     \fancyhf{}
   \fi
 }
+\pagestyle{empty}
+\addto{\frontmatter}{\pagestyle{fancy}}
+
 \let\oldchapter\chapter
 \renewcommand*{\chapter}{\@ifstar{\starchapter}{\@dblarg\nostarchapter}}
 \newcommand*{\starchapter}[1]{\oldchapter*{#1}\chaptermark{#1}}
@@ -349,6 +352,74 @@
   {\typeout{Patching \protect\@footnotetext\space didn't succeed}}
 \makeatother
 
+%%% FAUX-TITRE et GRAND TITRE
+
+\newcommand{\fauxtitre}{%
+  \newgeometry{textwidth=7cm,textheight=15cm}
+  \begin{titlepage}
+    \null\vfill
+    \begin{center}
+      {\LARGE CONSIDÉRATIONS} \\[1.5ex]
+      {\footnotesize\textls[250]{SUR}} \\[1.5ex]
+      {\Large\textls[120]{LE JEU, LES JOUEURS}} \\[2ex]
+      {\normalsize LA THÉORIE DES JEUX,\,\, etc.}
+    \end{center}
+    \vfill\vfill\vfill
+  \end{titlepage}
+  \restoregeometry
+}
+
+\newcommand{\grandtitre}{%
+  \newgeometry{textwidth=7cm,textheight=15cm}
+  \begin{titlepage}
+    \null\vspace{0.3cm}
+    \begin{center}
+      {\huge CONSIDÉRATIONS} \\[1.5ex]
+      {\footnotesize\textls[300]{SUR}} \\[1.5ex]
+      {\Large LE JEU, LES JOUEURS,} \\[2ex]
+      {\normalsize LA THÉORIE DES JEUX DE HASARD,} \\[2ex]
+      {\footnotesize LES CALCULS DE PROBABILITÉS, LA CONDUITE\\[0.1ex]
+        \hspace{2.5em} A TENIR AU JEU, L'ADMINISTRATION DES\\[-0.6ex]
+        \hspace{-11.8em} JEUX, etc.} \\[1ex]
+      {\normalsize\scshape\textls[100]{Par M.~LABLÉE,}} \\[1.2ex]
+      {\footnotesize Chevalier de l'Ordre royal de la Légion d'honneur,\\[-0.8ex]
+        de l'Académie de Lyon, etc.} \\[2ex]
+      \rule{\textwidth}{0.7pt} \\[0.5ex]
+      {\small\textls[100]{NOUVELLE ÉDITION,}} \\
+      {\small\itshape Revue et augmentée.} \\[-0.5ex]
+      \rule{\textwidth}{0.7pt} \\[3ex]
+      {\small\textls[250]{A PARIS,} \\[1.5ex]
+       Chez les \textsc{Libraires} et les \textsc{Marchands de} \\
+      \textsc{Nouveautés.}} \\[-1ex]
+      \rule{3.3ex}{0.7pt} \\
+      {1816.}
+    \end{center}
+  \end{titlepage}
+  \restoregeometry
+}
+
+\newcommand{\achevedimprimer}{%
+  \newgeometry{textwidth=7cm,textheight=15cm}
+  \null\vfill
+  \begin{center}
+    \rule{2.7in}{0.7pt}
+    \\[1pt]
+    \normalsize%
+    \textls[80]{DE L'IMPRIMERIE DE TESTU.}
+    \\[-6pt]
+    \rule{2.7in}{0.7pt}
+  \end{center}
+  \vfill\vfill\vfill
+  \newpage
+  \restoregeometry
+}
+
+\newcommand{\titres}{%
+  \fauxtitre
+  \achevedimprimer
+  \grandtitre
+}
+
 %%% MACROS POUR LA SAISIE DU TEXTE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Folio du document source dans la marge
@@ -388,6 +459,8 @@
 %%% DÉBUT DU DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+
+\titres
 
 \frontmatter
 
